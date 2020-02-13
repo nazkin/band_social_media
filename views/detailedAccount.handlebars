@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row d-flex flex-row justify-content-between">
+        
+        <div class="col-md-10 p-5">
+            <h2 class="mb-5">Create a Detailed Account</h2>
+            <form action="/api/account/{{currentUser.id}}" method="POST">
+                <div class="form-group">
+                    <label>Nickname</label>
+                    <input type="text" class="form-control" name ="nickname" placeholder="what you want to be referred to">
+                </div>
+                <div class="form-group">
+                    <label>Avatar</label>
+                    <input type="text" class="form-control" name ="avatar" placeholder="URL of your photo">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" rows="3" aria-label="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" class="form-control" name ="city" placeholder="city">
+                </div>
+                <div class="form-group">
+                    <label>Province</label>
+                    <input type="text" class="form-control" name ="province" placeholder="ex ON, BC">
+                </div>
+                <div class="form-group">
+                    <label>ZIP</label>
+                    <input type="text" class="form-control" name ="zip" placeholder="postal code">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Create Detailed Account</button>
+            </form a>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-outline-danger my-5" href="/logout">
+                Logout
+            <a>
+            <a class="btn btn-outline-success my-5" href="/members">
+                Back
+            <a>
+        </div>
+    </div>
+</div>
+
+
