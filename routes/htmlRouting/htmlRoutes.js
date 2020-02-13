@@ -1,5 +1,5 @@
 var isAuthenticated = require("../../config/middleware/isAuthenticated");
-var axios = require('axios');
+const db = require("../../models");
 
 module.exports = (app)=> {
       //This is the homepage route, from here the user signs-up or logs-in to proceed to the app
@@ -29,12 +29,32 @@ module.exports = (app)=> {
     app.get("/members", isAuthenticated, (req, res)=>{
         res.render("musiciansList");
     });
-
+    
     app.get("/members/:id", isAuthenticated, (req, res)=> {
       res.render("detailedAccount");
     });
-    app.get('members/:id/edit', isAuthenticated, (req, res)=> {
-      res.render("detailedAccountEdit");
+
+
+    //Naz: This is the new edit route which is used to edit the personal information of the user
+    //This route retrieves values from UserAccount table and fills the form fields in through the HTML input value attribute 
+    //To update the info in the database a user will send a POST request which is going to be stored in the apiRoutes folder
+    app.get('/members/edit/:id', isAuthenticated, (req, res)=> {
+      db.UserAccount.findOne({
+        Where: {id: req.user.id}
+      }).then(userInfo=> {
+        const usersAccount = {
+          nickname: userInfo.dataValues.nickname,
+          avatar: userInfo.dataValues.avatar,
+          description: userInfo.dataValues.description,
+          city: userInfo.dataValues.city,
+          province: userInfo.dataValues.province,
+          zip: userInfo.dataValues.zip
+        }
+        console.log(usersAccount);
+        res.render("detailedAccountEdit", usersAccount);
+      })
+      
+      
     });
 
 }
