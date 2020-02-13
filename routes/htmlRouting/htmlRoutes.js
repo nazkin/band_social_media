@@ -24,23 +24,40 @@ module.exports = (app)=> {
         }
         res.render("login");
       });
-       //Members is a route where all the pages that require authentication will start with 
-        //ex. the accounts of the user will be viewed through "/members/:id" or something of that sort
+    //Members is a route where all the pages that require authentication will start with 
+     //ex. the accounts of the user will be viewed through "/members/:id" or something of that sort
     app.get("/members", isAuthenticated, (req, res)=>{
-        res.render("musiciansList");
+      //NAZ: Retrieving all of the musicians from our database to then display them
+      //*************************************************************/
+      db.UserAccount.findAll({})
+      .then(users=> {
+        const usersArray=[];
+        users.forEach(value=> {
+          if(value.dataValues.UserId != req.user.id){
+            usersArray.push(value.dataValues);
+          } 
+          });
+        console.log(usersArray);
+        const musiciansObject = {
+          musicians: [...usersArray]
+        }
+        res.render("musiciansList", musiciansObject);
+      }).catch(err=> console.log(err));     
+      //*************************************************************/
     });
     
     app.get("/members/:id", isAuthenticated, (req, res)=> {
       res.render("detailedAccount");
     });
 
-
     //Naz: This is the new edit route which is used to edit the personal information of the user
     //This route retrieves values from UserAccount table and fills the form fields in through the HTML input value attribute 
     //To update the info in the database a user will send a POST request which is going to be stored in the apiRoutes folder
+    //**************************************************************************************/
+
     app.get('/members/edit/:id', isAuthenticated, (req, res)=> {
       db.UserAccount.findOne({
-        Where: {id: req.user.id}
+        where: {UserId: req.user.id}
       }).then(userInfo=> {
         const usersAccount = {
           nickname: userInfo.dataValues.nickname,
@@ -52,9 +69,9 @@ module.exports = (app)=> {
         }
         console.log(usersAccount);
         res.render("detailedAccountEdit", usersAccount);
-      })
-      
-      
+      })   
     });
-
+  //************************************************************************************************ */
 }
+
+

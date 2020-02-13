@@ -31,3 +31,7 @@ module.exports = function(sequelize, DataTypes) {
   });
   return User;
 };
+
+
+//NAZARS DATABASE USERS
+// severus, albus, harry, ron, voldemort --@hogwarts.com

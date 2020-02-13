@@ -2,9 +2,9 @@
     <div class="row d-flex flex-row justify-content-between">
         
         <div class="col-md-10 p-5">
-            <h2 class="mb-5">Update Personal Information</h2>
+            <h2 class="mb-5">Update Your Personal Info</h2>
             
-            <form action="" method="POST">
+            <form action="/members/edit/{{currentUser.id}}" method="POST">
                 <div class="form-group">
                     <label>Nickname</label>
                     <input value="{{nickname}}" type="text" class="form-control" name="nickname" placeholder="what you want to be referred to">
