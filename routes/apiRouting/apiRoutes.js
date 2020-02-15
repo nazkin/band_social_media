@@ -44,6 +44,8 @@ module.exports = function(app) {
       res.redirect('/members');
     }).catch(err=> console.log(err));
   });
+
+
   //********************************************************************************************* */
   //NAZ: This route below is responsible for updating the users personal account
   //In more detail I am Updating information that is located in the UserAccount
@@ -64,9 +66,21 @@ module.exports = function(app) {
   });
 //********************************************************************************************* */
 
+//********************************************************************************************* */
+//Naz: This is a POST route that stores messages sent to a particular musician by the user
+//In this case usersId is linked to the foreignKey which specifies musicians id in the Users table
+app.post('/members/explore/message/:usersId', (req,res)=> {
+  db.UserMessages.create({
+    sentBy: req.body.email,
+    message: req.body.message,
+    UserId: req.params.usersId
+  }).then(message => {
+    console.log('Message successfully sent to user');
+    res.redirect('/members');
+  }).catch(err=> console.log(err));
+});
 
-
-
+//********************************************************************************************* */
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
