@@ -24,7 +24,9 @@ module.exports = (app)=> {
         }
         res.render("login");
       });
-    //Members is a route where all the pages that require authentication will start with 
+
+
+      //Members is a route where all the pages that require authentication will start with 
      //ex. the accounts of the user will be viewed through "/members/:id" or something of that sort
     app.get("/members", isAuthenticated, (req, res)=>{
       //NAZ: Retrieving all of the musicians from our database to then display them
@@ -38,6 +40,7 @@ module.exports = (app)=> {
           } 
           });
         console.log(usersArray);
+        //Creating an object to pass information to handlebars
         const musiciansObject = {
           musicians: [...usersArray]
         }
@@ -71,7 +74,28 @@ module.exports = (app)=> {
         res.render("detailedAccountEdit", usersAccount);
       })   
     });
-  //************************************************************************************************ */
-}
+    //************************************************************************************************ */
+
+      //Naz: This is a get route that will retrieve the musicians information once the "explore" button is clicked
+      //This is where the user will be able to explore in more detail the profile of the musician 
+      //This is also where the user will be able to place a message to the musician being looked at 
+      //"userId" will represent the primaryKey of the userAccount table
+      //**************************************************************************************/
+      app.get("/members/explore/:usersId",isAuthenticated, (req, res)=> {
+        db.UserAccount.findOne({
+          where:{id: req.params.usersId}
+        }).then(accountInfo=> {
+          const account = accountInfo.dataValues;
+          res.render("musicianExplore", account);
+        }).catch(err=> console.log(err));
+      
+      });
+  
+      //**************************************************************************************/
+
+
+
+
+  }
 
 
