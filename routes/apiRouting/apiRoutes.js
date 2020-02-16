@@ -79,8 +79,37 @@ app.post('/members/explore/message/:usersId', (req,res)=> {
     res.redirect('/members');
   }).catch(err=> console.log(err));
 });
+//********************************************************************************************* */
 
 //********************************************************************************************* */
+//Naz: The route below is used to reply to a users messages where the "id" being the primary key of the Users table
+// representing the User who is being replied to 
+app.post("/members/messages/reply/:id", (req,res)=> {
+  db.UserMessages.create({
+    sentBy: req.body.email,
+    message: req.body.message, 
+    UserId: req.params.id
+  }).then(message => {
+    console.log('Successfully replied to user');
+    res.redirect('/members');
+  }).catch(err=> console.log(err));
+})
+
+//********************************************************************************************* */
+
+//*******************************DELETE ROUTES***************************************************
+
+//Naz:Below is a delete route for messages
+  app.get("/members/messages/delete/:messageId", (req,res)=> {
+    db.UserMessages.destroy({
+      where: {id: req.params.messageId}
+    }).then(()=>{
+      console.log("message deleted successfully");
+      res.redirect(`/members/messages/${req.user.id}`);
+    })
+      .catch(err=> console.log(err));
+  });
+
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();

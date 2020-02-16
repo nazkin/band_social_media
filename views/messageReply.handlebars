@@ -1,0 +1,17 @@
+<div class="jumbotron m-5 text-center">
+    <h1>Replying message from "{{email}}"</h1>
+    <h3>Use the fields below!!! :)</h3>
+</div>
+<div class="container p-5 text-center">
+    <form action="/members/messages/reply/{{id}}" method="POST">
+        <div class="form- my-4">
+            <label>Sent by</label>
+            <input type="email" class="form-control" value="{{currentUser.email}}" name="email" readonly>
+        <div>
+        <div class="form-group my-4">
+            <label>Reply to the message below</label>
+            <textarea class="form-control" name="message" rows="3" aria-label="message"></textarea>
+        </div>
+        <button class="btn btn-primary btn-lg">Reply</button>
+    </form> 
+</div>
