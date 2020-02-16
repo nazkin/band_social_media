@@ -17,7 +17,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   });
-
+  //Naz: This creates a one-to-many relationship with the messages table
+  //************************************************************************************************
+  User.associate = models => {
+    User.hasMany(models.UserMessages);
+  };
+  //************************************************************************************************
   User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
   };
@@ -29,5 +34,11 @@ module.exports = function(sequelize, DataTypes) {
       null
     );
   });
+
+
   return User;
 };
+
+
+//NAZARS DATABASE USERS
+// severus, albus, harry, ron, voldemort --@hogwarts.com
