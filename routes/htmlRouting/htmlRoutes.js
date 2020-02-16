@@ -104,10 +104,31 @@ module.exports = (app)=> {
           const userMsgs = {
             messages: [...msgArray]
           }
+          console.log(msgArray);
           res.render("userMessages", userMsgs);
         }).catch(err=> console.log(err));
         
       });
+
+      //**************************************************************************************/
+      //Naz: This route allows the logged in user to reply to a certain message
+      //This route simply display a form and passes through the email of the musician the user is replying to 
+      app.get("/members/messages/reply/:email", isAuthenticated, (req,res)=> {
+        db.User.findOne({
+          where: {email: req.params.email}
+        }).then(user=> {
+          
+          const replyTo = {
+            id: user.dataValues.id,
+            email: user.dataValues.email
+          }
+          console.log(replyTo);
+          res.render("messageReply", replyTo);
+        })
+          .catch(err=> console.log(err));   
+      });
+
+
 
       //**************************************************************************************/
   }
