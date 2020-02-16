@@ -92,10 +92,24 @@ module.exports = (app)=> {
       });
   
       //**************************************************************************************/
+      //Naz: This route allows the logged in user to check his messages
+      //**************************************************************************************/
+      app.get("/members/messages/:id", isAuthenticated, (req, res)=> {
+        db.UserMessages.findAll({
+          where:{UserId: req.params.id}
+        }).then(msgs=>{
+          //Making sure that the array returned can be used as a handlebars object
+          const msgArray=[];
+          msgs.forEach(msg=> msgArray.push(msg.dataValues));
+          const userMsgs = {
+            messages: [...msgArray]
+          }
+          res.render("userMessages", userMsgs);
+        }).catch(err=> console.log(err));
+        
+      });
 
-
-
-
+      //**************************************************************************************/
   }
 
 
