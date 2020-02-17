@@ -14,6 +14,7 @@ app.use(express.json());
 // for using handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+app.use(express.static("public"));
 
 //Using passport as configured 
 app.use(session({secret: "amazingandalways awesome", resave:true, saveUninitialized: true}));
