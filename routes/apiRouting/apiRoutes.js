@@ -44,8 +44,72 @@ module.exports = function(app) {
       res.redirect('/members');
     }).catch(err=> console.log(err));
   });
-  
-  
+
+
+  //********************************************************************************************* */
+  //NAZ: This route below is responsible for updating the users personal account
+  //In more detail I am Updating information that is located in the UserAccount
+  //where the foreign key is equivalent to the active users id stored in the URL
+  app.post('/members/edit/:id', (req, res)=> {
+    db.UserAccount.update({
+      nickname: req.body.nickname,
+      avatar: req.body.avatar,
+      description: req.body.description,
+      city: req.body.city,
+      province: req.body.province,
+      zip: req.body.zip, 
+    }, {where: {UserId: req.params.id}})
+      .then(rowsUpdated=> {
+        console.log(`You successfully updated ${rowsUpdated} account sections`);
+        res.redirect('/members');
+      }).catch(err=> console.log(err));
+  });
+//********************************************************************************************* */
+
+//********************************************************************************************* */
+//Naz: This is a POST route that stores messages sent to a particular musician by the user
+//In this case usersId is linked to the foreignKey which specifies musicians id in the Users table
+app.post('/members/explore/message/:usersId', (req,res)=> {
+  db.UserMessages.create({
+    sentBy: req.body.email,
+    message: req.body.message,
+    UserId: req.params.usersId
+  }).then(message => {
+    console.log('Message successfully sent to user');
+    res.redirect('/members');
+  }).catch(err=> console.log(err));
+});
+//********************************************************************************************* */
+
+//********************************************************************************************* */
+//Naz: The route below is used to reply to a users messages where the "id" being the primary key of the Users table
+// representing the User who is being replied to 
+app.post("/members/messages/reply/:id", (req,res)=> {
+  db.UserMessages.create({
+    sentBy: req.body.email,
+    message: req.body.message, 
+    UserId: req.params.id
+  }).then(message => {
+    console.log('Successfully replied to user');
+    res.redirect('/members');
+  }).catch(err=> console.log(err));
+})
+
+//********************************************************************************************* */
+
+//*******************************DELETE ROUTES***************************************************
+
+//Naz:Below is a delete route for messages
+  app.get("/members/messages/delete/:messageId", (req,res)=> {
+    db.UserMessages.destroy({
+      where: {id: req.params.messageId}
+    }).then(()=>{
+      console.log("message deleted successfully");
+      res.redirect(`/members/messages/${req.user.id}`);
+    })
+      .catch(err=> console.log(err));
+  });
+
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();

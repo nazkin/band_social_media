@@ -1,1 +1,51 @@
-<h1>This is where the update will happen</h1>
+<div class="container-fluid">
+    <div class="row d-flex flex-row justify-content-between">
+        
+        <div class="col-md-10 p-5">
+            <h2 class="mb-5">Update Your Personal Info</h2>
+            
+            <form action="/members/edit/{{currentUser.id}}" method="POST">
+                <div class="form-group">
+                    <label>Nickname</label>
+                    <input value="{{nickname}}" type="text" class="form-control" name="nickname" placeholder="what you want to be referred to">
+                </div>
+                <div class="form-group">
+                    <label>Avatar</label>
+                    <input value="{{avatar}}" type="text" class="form-control" name="avatar" placeholder="URL of your photo">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" rows="3" aria-label="description">{{description}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input value="{{city}}" type="text" class="form-control" name="city" placeholder="city">
+                </div>
+                <div class="form-group">
+                    <label>Province</label>
+                    <input value="{{province}}" type="text" class="form-control" name="province" placeholder="ex ON, BC">
+                </div>
+                <div class="form-group">
+                    <label>ZIP</label>
+                    <input value="{{zip}}" type="text" class="form-control" name="zip" placeholder="postal code">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Edit Personal Account</button>
+            </form>
+        </div>
+        <div class="col-md-2 text-center">
+            
+            <a class="btn btn-outline-danger my-3" href="/logout">
+                Logout
+            <a>
+            <a class="btn btn-outline-success my-3" href="/members">
+                Back
+            <a>
+            <div class="p-1 text-center ">
+                <h6>{{currentUser.email}}</h6>
+                <hr>
+                <img src="{{avatar}}" alt="users profile picture" width="100px" height="100px">
+            </div>
+
+        </div>
+    </div>
+</div>

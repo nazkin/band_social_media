@@ -1,0 +1,26 @@
+ {{!-- <a class="btn btn-outline-danger btn-sm" href="/logout">
+    Logout
+<a> --}}
+<div class="jumbotron mx-5 mb-5 text-center">
+   
+        <h1>Inbox messages are displayed below</h1>    
+</div>
+<div class="container my-3">
+{{#each messages}}
+    <div class="row d-flex flex-row justify-content-around my-3 p-2 border-top">
+        <div class="col-md-3">
+            <h4>{{sentBy}}</h4>
+            <h6>{{createdAt}}</h6>
+        </div>
+        <div class="col-md-6">
+          <p>{{message}}</p> 
+          
+        </div>
+        <div class="col-md-2">
+            <a href="/members/messages/reply/{{sentBy}}">Reply</a>
+            <hr>
+            <a href="/members/messages/delete/{{id}}" >Remove</a>    
+        </div>
+    </div>
+{{/each}}
+</div>
