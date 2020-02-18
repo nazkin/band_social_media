@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "19935ert7",
+    "password": "root",
     "database": "rock_band_app",
     "host": "127.0.0.1",
     "dialect": "mysql",
