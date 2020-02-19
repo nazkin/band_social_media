@@ -3,33 +3,45 @@
     <div class="row d-flex flex-row justify-content-between">
       
       <div class="col-md-7 my-5 p-0 border-right" id="left">
+
+   {{!-- NAZ: This is where all of the musicians will be desplayed. Changed the hard coding into dynamic    --}}
+     {{!-- ************************************************************************************************************* --}}
+
+
       <h2 class="mb-5">Musicians in your area</h2>
+         {{#each musicians}} 
         <div class="row my-3 p-3 border-top d-flex flex-row align-items-center">
-            <div class="col-2">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT1EjNr28Gshw3cZnQKERUI9etlLYwcgwMEhsUDx1q8jO34uZst" alt="user avatar" width ="100%">
+            <div class="col-md-2">
+            <img src="{{avatar}}" alt="user avatar" width ="100%">
             </div>
-            <div class="col-8">
-              <h5>Name: Neil Young</h5>
-              <p>Description: A young guitarist with a deap understanding of the blues scale.
-                 Looking for a band or to play for private gatherings.</p>
+            <div class="col-md-8">
+              <h5>{{nickname}}</h5>
+              <p>{{description}}</p>
             </div>
-            <div class="col-2">
-              <a href="#" class="btn btn-secondary">Explore</a>
-            </div>
-        </div>  
+            <div class="col-md-2">
+              <a href="/members/explore/{{id}}" class="btn btn-secondary">Explore</a>
+            </div> 
+        </div>
+         {{/each}}
       </div>
+    {{!-- **************************************************************************************************************** --}}
       <div class="col-md-4 my-2 p-3 border">
          <h3>:) Welcome, </h3><h4> {{currentUser.email}}</h4>
+                 {{!-- Naz: This route will allow user to view his/her messages
+                  ************************************************************* --}}
+                  <a href="/members/messages/{{currentUser.id}}">Messages</a>
+                  <hr>
+                  {{!-- *************************************************************** --}}
            <a class="btn btn-outline-danger my-5" href="/logout">
               Logout
            <a>
         <h4>Make yourself known with a detailed account!</h4>
         <hr>
-           <a class="btn btn-outline-warning my-5" href="/members/{{currentUser.id}}">
-              View Account
+           <a class="btn btn-outline-warning my-5" href="/members/edit/{{currentUser.id}}">
+              Edit Personal Account
            <a>
            <a class="btn btn-outline-success my-5" href="/members/{{currentUser.id}}">
-              New Account Info
+              Create Personal Account
            <a>
       </div>
     </div>
