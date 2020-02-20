@@ -90,6 +90,18 @@ module.exports = (app)=> {
         }).catch(err=> console.log(err));
       
       });
+
+      //michael: retieving data for personal accounts
+
+      app.get("/members/self/:id",isAuthenticated, (req, res)=> {
+        db.UserAccount.findOne({
+          where:{UserId: req.params.id}
+        }).then(accountInfo=> {
+          const account = accountInfo.dataValues;
+          res.render("theRealView", account);
+        }).catch(err=> console.log(err));
+      
+      });
   
       //**************************************************************************************/
       //Naz: This route allows the logged in user to check his messages

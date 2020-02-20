@@ -1,0 +1,37 @@
+<div class="jumbotron my-3">
+    <div class="container text-center">
+        <h1><span>{{nickname}}</span></h1>
+        <img src="{{avatar}}" width="250px" height="auto">
+    </div>
+</div>
+    <div class="container-fluid">
+        <div class="row d-flex flex-row justify-content-around">
+            <div class="col-md-8 my-5 p-0 border-right text-center">
+                <h3>Description</h3>
+                <p>{{description}}</p>
+                <hr>
+                <p></p>
+                <h3>Location</h3>
+                <h6>City: {{city}}</h6>
+                <h6>Province: {{province}}</h6>
+                <h6>Postal-code: {{zip}}</h6>
+
+                <hr class="mb-4">
+                    
+            </div>
+            <div class="col-md-2 my-2 p-3 border">
+               <h3>:) Welcome, </h3><h4> {{currentUser.email}}</h4>
+                 <a class="btn btn-outline-danger my-5" href="/logout">
+                    Logout
+                 <a>
+              <h4>Make yourself known with a detailed account!</h4>
+              <hr>
+                 <a class="btn btn-outline-warning my-5" href="/members/edit/{{currentUser.id}}">
+                    Edit Personal Account
+                 <a>
+                 <a class="btn btn-outline-success my-5" href="/members/{{currentUser.id}}">
+                    Create Band Account
+                 <a>
+            </div>
+        </div>
+    </div>
