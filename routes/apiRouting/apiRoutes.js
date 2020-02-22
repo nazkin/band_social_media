@@ -45,6 +45,23 @@ module.exports = function(app) {
     }).catch(err=> console.log(err));
   });
 
+  // Michael: adding band account post request to the DB
+  //#######################################################################
+
+  app.post('/api/band/:id', (req, res)=> {
+    console.log(req.body);
+    db.Bands.create({
+      bandname: req.body.bandname,
+      avatar: req.body.avatar,
+      members: req.body.members,
+      songs: req.body.songs,
+      neededTalents: req.body.neededTalents,
+      location: req.body.location,
+      UserId: req.params.id
+    }).then(()=> {
+      res.redirect('/members');
+    }).catch(err=> console.log(err));
+  });
 
   //********************************************************************************************* */
   //NAZ: This route below is responsible for updating the users personal account

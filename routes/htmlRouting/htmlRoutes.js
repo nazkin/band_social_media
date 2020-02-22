@@ -102,6 +102,18 @@ module.exports = (app)=> {
         }).catch(err=> console.log(err));
       
       });
+
+      //Michael: now getting band account info
+
+      app.get("/members/band/:id",isAuthenticated, (req, res)=> {
+        // db.Band.findOne({
+        //   where:{UserId: req.params.id}
+        // }).then(accountInfo=> {
+        //   const account = accountInfo.dataValues;
+          res.render("bandAccount");
+        // }).catch(err=> console.log(err));
+      
+      });
   
       //**************************************************************************************/
       //Naz: This route allows the logged in user to check his messages
