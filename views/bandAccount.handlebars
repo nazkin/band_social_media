@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row d-flex flex-row justify-content-between">
+        
+        <div class="col-md-10 p-5">
+            <h2 class="mb-5">Create a Detailed Account</h2>
+            <form action="/api/band/{{currentUser.id}}" method="POST">
+                <div class="form-group">
+                    <label>Band Name</label>
+                    <input type="text" class="form-control" name ="bandname" placeholder="what you want to be referred to">
+                </div>
+                <div class="form-group">
+                    <label>Avatar</label>
+                    <input type="text" class="form-control" name ="avatar" placeholder="URL of your photo">
+                </div>
+                <div class="form-group">
+                    <label>Members</label>
+                    <textarea class="form-control" name="members" rows="3" aria-label="members"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Songs</label>
+                    <input type="text" class="form-control" name ="songs" placeholder="songs">
+                </div>
+                <div class="form-group">
+                    <label>Looking For</label>
+                    <input type="text" class="form-control" name ="lookingfor" placeholder="Talents Needed">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" class="form-control" name ="zip" placeholder="Your Address">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Create Band Account</button>
+            </form a>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-outline-danger my-5" href="/logout">
+                Logout
+            <a>
+            <a class="btn btn-outline-success my-5" href="/members">
+                Back
+            <a>
+        </div>
+    </div>
+</div>
+
