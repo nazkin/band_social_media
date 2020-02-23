@@ -1,5 +1,41 @@
 const db = require("../../models");
 const passport = require("../../config/passport");
+const multer = require('multer');
+const path = require('path');
+//Naz: *****************************************Multer Set-Up*******************************
+// Set The Storage Engine
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb){
+    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+// Init Upload
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 1000000},
+  fileFilter: function(req, file, cb){
+    checkFileType(file, cb);
+  }
+}).single('myImage');
+
+// Check File Type
+function checkFileType(file, cb){
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return cb(null,true);
+  } else {
+    cb('Error: Images Only!');
+  }
+}
+//*********************************************************************************************
 
 
 module.exports = function(app) {
@@ -110,7 +146,25 @@ app.post("/members/messages/reply/:id", (req,res)=> {
     console.log('Successfully replied to user');
     res.redirect('/members');
   }).catch(err=> console.log(err));
-})
+});
+
+//This post allows to upload a band photo and store the name of our file in the database
+app.post('/upload/band/:id', (req, res)=> {
+  upload(req,res, (err)=> {
+    if(err){
+      console.log(err);
+      res.redirect('/members');
+    }else{
+      db.BandPhoto.create({
+        filename: req.file.filename,
+        UserId: req.params.id
+      }).then(message => {
+        console.log(message);
+        res.redirect('/members/self/'+req.params.id);
+      });
+    }
+  });
+});
 
 //********************************************************************************************* */
 

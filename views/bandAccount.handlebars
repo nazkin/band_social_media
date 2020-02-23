@@ -29,7 +29,16 @@
                     <input type="text" class="form-control" name ="zip" placeholder="Your Address">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Create Band Account</button>
-            </form a>
+            </form >
+
+            <h1>Upload Photos of Your Band!!!</h1>
+            <form action="/upload/band/{{currentUser.id}}" method="POST" enctype="multipart/form-data" >
+                <div class="form-group">
+                  <label >Upload here</label>
+                  <input name="myImage" type="file" class="form-control-file" id="upload-image">
+                </div>
+                <button type="submit" class="btn btn-primary my-2">Upload</button>
+            </form>
         </div>
         <div class="col-md-2">
             <a class="btn btn-outline-danger my-5" href="/logout">
