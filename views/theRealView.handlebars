@@ -20,17 +20,20 @@
                     
             </div>
             <div class="col-md-2 my-2 p-3 border">
-               <h3>:) Welcome, </h3><h4> {{currentUser.email}}</h4>
+               <h3>:) Welcome, </h3><p> {{currentUser.email}}</p>
                  <a class="btn btn-outline-danger my-5" href="/logout">
                     Logout
                  <a>
-              <h4>Make yourself known with a detailed account!</h4>
+              <h4>Personalize your account</h4>
               <hr>
-                 <a class="btn btn-outline-warning my-5" href="/members/edit/{{currentUser.id}}">
+                 <a class="btn btn-outline-warning my-2" href="/members/edit/{{currentUser.id}}">
                     Edit Personal Account
                  <a>
-                 <a class="btn btn-outline-success my-5" href="/members/band/{{currentUser.id}}">
+                 <a class="btn btn-outline-success my-2" href="/members/band/{{currentUser.id}}">
                     Create Band Account
+                 <a>
+                 <a class="btn btn-outline-dark my-2" href="/members/band/photo/{{currentUser.id}}">
+                    Submit a band photo
                  <a>
             </div>
         </div>

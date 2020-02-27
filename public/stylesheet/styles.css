@@ -42,6 +42,12 @@
 #left{
     padding: 15;
 
-    background-color: linen;
+    background-color: rgb(250, 250, 252);
 
+}
+
+.page-switcher{
+    background-color: lavender;
+    border: 1px double rgb(59, 18, 59);
+    
 }

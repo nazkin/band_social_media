@@ -9,8 +9,8 @@
                     <input type="text" class="form-control" name ="bandname" placeholder="what you want to be referred to">
                 </div>
                 <div class="form-group">
-                    <label>Avatar</label>
-                    <input type="text" class="form-control" name ="avatar" placeholder="URL of your photo">
+                    <label>Genre</label>
+                    <input type="text" class="form-control" name ="avatar" placeholder="Your music genre">
                 </div>
                 <div class="form-group">
                     <label>Members</label>
@@ -20,25 +20,26 @@
                     <label>Songs</label>
                     <input type="text" class="form-control" name ="songs" placeholder="songs">
                 </div>
-                <div class="form-group">
+                {{!-- THESE ROUTES DONT WORK MICHAEL --}}
+                {{!-- <div class="form-group">
                     <label>Looking For</label>
                     <input type="text" class="form-control" name ="lookingfor" placeholder="Talents Needed">
                 </div>
                 <div class="form-group">
                     <label>Location</label>
                     <input type="text" class="form-control" name ="zip" placeholder="Your Address">
-                </div>
+                </div> --}}
                 <button type="submit" class="btn btn-primary mb-2">Create Band Account</button>
-            </form >
+            {{!-- </form >
 
-            <h1>Upload Photos of Your Band!!!</h1>
+            <h1 class="mt-5">Upload Photos of Your Band!!!</h1>
             <form action="/upload/band/{{currentUser.id}}" method="POST" enctype="multipart/form-data" >
                 <div class="form-group">
                   <label >Upload here</label>
                   <input name="myImage" type="file" class="form-control-file" id="upload-image">
                 </div>
                 <button type="submit" class="btn btn-primary my-2">Upload</button>
-            </form>
+            </form> --}}
         </div>
         <div class="col-md-2">
             <a class="btn btn-outline-danger my-5" href="/logout">

@@ -1,0 +1,53 @@
+
+  <div class="container ">
+    <div style=" background-color: lavender;
+    border: 1px double rgb(59, 18, 59);" class=" my-2 p-2  border-top border-bottom">
+      <a href="/members"  class="btn btn-dark mx-5">Solo Musicians Near You</a>
+    </div>
+    <div class="row d-flex flex-row justify-content-between">
+      
+      <div style="background-color: rgb(250, 250, 252);" class="col-md-7 my-5 p-0 text-center border-right border-left" id="left">
+
+   {{!-- NAZ: This is where all of the bands will be desplayed. Changed the hard coding into dynamic    --}}
+     {{!-- ************************************************************************************************************* --}}
+        <h3 class="mb-5">Bands In Your Area</h3>
+        {{#each bands}}
+        <div class="row my-3 p-3 border-top d-flex flex-row align-items-center">
+            <div class="col-md-4">
+                <h5>{{bandname}}</h5>
+            </div>
+            <div class="col-md-5">
+              <h5>Members: {{members}}</h5>
+              <p>Songs: {{songs}}</p>
+            </div>
+            <div class="col-md-2">
+              <a href="/members/explore/bands/{{UserId}}" class="btn btn-secondary">View Photo</a>
+            </div> 
+        </div>
+        {{/each}}
+      </div>  
+      <div class="col-md-3 my-2 p-3 border">
+         <h3>:) Welcome, </h3><p> {{currentUser.email}}</p>
+                 {{!-- Naz: This route will allow user to view his/her messages
+                  ************************************************************* --}}
+                  <a href="/members/messages/{{currentUser.id}}">Messages</a>
+                  <hr>
+                  {{!-- *************************************************************** --}}
+           <a class="btn btn-outline-danger my-5" href="/logout">
+              Logout
+           <a>
+        <hr>
+        <hr>
+        {{#if hasAcc}}
+            <a class="btn btn-outline-warning my-2" href="/members/self/{{currentUser.id}}">
+              View Account Details
+           <a>
+        {{else}}
+           <a class="btn btn-outline-success my-2" href="/members/{{currentUser.id}}">
+              Create Personal Account
+           <a>
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
