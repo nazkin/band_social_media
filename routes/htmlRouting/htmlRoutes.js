@@ -34,19 +34,44 @@ module.exports = (app)=> {
       db.UserAccount.findAll({})
       .then(users=> {
         const usersArray=[];
+        let hasAccount = false;
         users.forEach(value=> {
           if(value.dataValues.UserId != req.user.id){
             usersArray.push(value.dataValues);
+          }
+          if(value.dataValues.UserId == req.user.id){
+            hasAccount = true;
           } 
           });
         console.log(usersArray);
         //Creating an object to pass information to handlebars
         const musiciansObject = {
-          musicians: [...usersArray]
+          musicians: [...usersArray],
+          needAcc: hasAccount
         }
         res.render("musiciansList", musiciansObject);
       }).catch(err=> console.log(err));     
       //*************************************************************/
+    });
+    app.get("/members/list/bands",isAuthenticated, (req,res)=> {
+      db.Bands.findAll({}).then(bands=> {
+        const bandsArray=[];
+        let needAcc = false;
+        bands.forEach(value=> {
+            if(value.dataValues.UserId != req.user.id){
+              bandsArray.push(value.dataValues);
+            } 
+            if(value.dataValues.UserId == req.user.id){
+              needAcc = true;
+            }
+          });
+        console.log(bandsArray);
+        const bandsObject = {
+          bands: [...bandsArray],
+          hasAcc: needAcc
+        }
+        res.render('bandAccountList', bandsObject);
+      });
     });
     
     app.get("/members/:id", isAuthenticated, (req, res)=> {
@@ -73,6 +98,18 @@ module.exports = (app)=> {
         console.log(usersAccount);
         res.render("detailedAccountEdit", usersAccount);
       })   
+    });
+
+    app.get('/members/explore/bands/:id', (req, res)=> {
+      db.BandPhoto.findOne({
+        where: {UserId: req.params.id}
+      }).then(info=> {
+        console.log(info.dataValues);
+        const bandPhoto = info.dataValues;
+        res.render('bandsExplore', bandPhoto);
+      }).catch(err=> {
+        console.log(err);
+      });
     });
     //************************************************************************************************ */
 
@@ -106,14 +143,15 @@ module.exports = (app)=> {
       //Michael: now getting band account info
 
       app.get("/members/band/:id",isAuthenticated, (req, res)=> {
-        // db.Band.findOne({
-        //   where:{UserId: req.params.id}
-        // }).then(accountInfo=> {
-        //   const account = accountInfo.dataValues;
+    
           res.render("bandAccount");
-        // }).catch(err=> console.log(err));
+        
       
       });
+
+      app.get('/members/band/photo/:id', isAuthenticated, (req,res)=> {
+        res.render('submitBandPhoto');
+      })
   
       //**************************************************************************************/
       //Naz: This route allows the logged in user to check his messages
